@@ -30,6 +30,11 @@
 
 <body ng-app="app" ng-controller="indexController as vm">
     <script>
+    MessengerExtensions.requestCloseBrowser(function success() {
+    	  // webview closed
+    	}, function error(err) {
+    	  // an error occurred
+    	});
    		 window.extAsyncInit = function() {
         // the Messenger Extensions JS SDK is done loading
         MessengerExtensions.getUserID(function success(uids) {
