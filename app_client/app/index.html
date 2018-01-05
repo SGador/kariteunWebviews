@@ -30,6 +30,13 @@
 
 <body ng-app="app" ng-controller="indexController as vm">
     <script>
+   		 window.extAsyncInit = function() {
+        // the Messenger Extensions JS SDK is done loading
+        MessengerExtensions.getUserID(function success(uids) {
+          window.attachApp(uids.psid, gift);
+        }, function error(err) {
+          window.attachApp();
+        })};
  
         (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
