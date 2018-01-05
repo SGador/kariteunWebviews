@@ -1,5 +1,5 @@
 ---
 applications:
- - name: kariteun-shopping
-   host: kariteun-shopping
+ - name: kariteun-webview
+   host: kariteun-webview
    memory: 128M
