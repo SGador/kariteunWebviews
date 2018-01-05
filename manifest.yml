@@ -1,0 +1,5 @@
+---
+applications:
+ - name: kariteun-shopping
+   host: kariteun-shopping
+   memory: 128M

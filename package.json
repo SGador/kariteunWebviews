@@ -1,0 +1,24 @@
+{
+  "name": "NoodoProjyekuto",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cloudant": "^1.10.0",
+    "cookie-parser": "^1.4.1",
+    "express": "~4.13.1",
+    "express-jwt": "^3.0.1",
+    "express-session": "^1.13.0",
+    "jsonwebtoken": "^5.0.4",
+    "method-override": "~2.0.2",
+    "mongoose": "^4.13.3",
+    "nodemailer": "^4.4.1",
+    "passport": "^0.2.2",
+    "passport-local": "^1.0.0",
+    "sendgrid": "^5.2.3"
+  },
+  "devDependencies": {}
+}
