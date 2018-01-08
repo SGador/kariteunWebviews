@@ -37,11 +37,19 @@
     	});
    		 window.extAsyncInit = function() {
         // the Messenger Extensions JS SDK is done loading
-        MessengerExtensions.getUserID(function success(uids) {
+      /*   MessengerExtensions.getUserID(function success(uids) {
           window.attachApp(uids.psid, gift);
         }, function error(err) {
           window.attachApp();
-        })};
+        })}; */
+        MessengerExtensions.getContext('328158877659945',, 
+        		  function success(thread_context){
+            // success
+          },
+          function error(err){
+            // error
+          }
+        );)
  
         (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
