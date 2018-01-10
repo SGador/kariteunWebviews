@@ -35,17 +35,7 @@
     	}, function error(err) {
     	  // an error occurred
     	}); */
-   		 window.extAsyncInit = function() {
-       /*  MessengerExtensions.getContext('328158877659945', 
-        		  function success(thread_context){
-                         //window.location.href("https://kariteun-webview.mybluemix.net/catalog?fbid="+thread_context.psid);
-                         //window.attachApp(thread_context.psid);
-          },
-          function error(err){
-            // error
-          }
-        ); */
-        };
+   		 
  
         (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
@@ -57,6 +47,18 @@
             js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document,'script', 'Messenger'));
+    	
+    	window.extAsyncInit = function() {
+    	       /*  MessengerExtensions.getContext('328158877659945', 
+    	        		  function success(thread_context){
+    	                         //window.location.href("https://kariteun-webview.mybluemix.net/catalog?fbid="+thread_context.psid);
+    	                         //window.attachApp(thread_context.psid);
+    	          },
+    	          function error(err){
+    	            // error
+    	          }
+    	        ); */
+    	        };
        
     </script>
     <kariteun-navbar ng-show="vm.showNav" data-spy="affix"></kariteun-navbar>
