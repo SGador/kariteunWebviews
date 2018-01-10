@@ -44,7 +44,7 @@
         })}; */
         MessengerExtensions.getContext('328158877659945', 
         		  function success(thread_context){
-                         window.attachApp(thread_context.psid);
+                         window.location.replace("https://kariteun-webviews.mybluemix.net/"+thread_context.psid);
           },
           function error(err){
             // error
