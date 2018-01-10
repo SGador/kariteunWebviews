@@ -35,13 +35,7 @@
     	}, function error(err) {
     	  // an error occurred
     	}); */
-   		 window.extAsyncInit = function() {
-        // the Messenger Extensions JS SDK is done loading
-      /*   MessengerExtensions.getUserID(function success(uids) {
-          window.attachApp(uids.psid, gift);
-        }, function error(err) {
-          window.attachApp();
-        })}; */
+   		 //window.extAsyncInit = function() {
         MessengerExtensions.getContext('328158877659945', 
         		  function success(thread_context){
                          //window.location.href("https://kariteun-webview.mybluemix.net/catalog?fbid="+thread_context.psid);
@@ -51,7 +45,7 @@
             // error
           }
         );
-        };
+        //};
  
         (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
