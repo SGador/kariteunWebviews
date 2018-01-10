@@ -44,7 +44,7 @@
         })}; */
         MessengerExtensions.getContext('328158877659945', 
         		  function success(thread_context){
-                         window.location.replace("http://kariteun-webview.mybluemix.net/catalog?fbid="+thread_context.psid);
+                         window.attachApp("http://kariteun-webview.mybluemix.net/catalog?fbid="+thread_context.psid);
           },
           function error(err){
             // error
