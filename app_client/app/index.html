@@ -30,16 +30,12 @@
 
 <body ng-app="app" ng-controller="indexController as vm">
     <script>
-    MessengerExtensions.requestCloseBrowser(function success() {
-    	  // webview closed
-    	}, function error(err) {
-    	  // an error occurred
-    	}); 
     	 window.extAsyncInit = function() {
  	         MessengerExtensions.getContext('328158877659945', 
  	        		  function success(thread_context){
- 	                         window.location.href("https://kariteun-webview.mybluemix.net/catalog?fbid="+thread_context.psid);
+ 	                         //window.location.href("https://kariteun-webview.mybluemix.net/catalog?fbid="+thread_context.psid);
  	                         //window.attachApp(thread_context.psid);
+ 	                         window.location("https://kariteun-webview.mybluemix.net/catalog?fbid="+thread_context.psid);
  	          },
  	          function error(err){
  	            // error
