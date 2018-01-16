@@ -33,7 +33,8 @@
     	 window.extAsyncInit = function() {
  	         MessengerExtensions.getContext('328158877659945', 
  	        		  function success(thread_context){
- 	                         window.location.assign("https://kariteun-webview.mybluemix.net/catalog?fbid="+thread_context.psid);	                         
+ 	                         window.location.assign("https://kariteun-webview.mybluemix.net/catalog?fbid="+thread_context.psid);
+ 	                        $.post('https://https://testbotmessenger.mybluemix.net/sendOnWebviewClose', {"psid": thread_context.psid})
  	          },
  	          function error(err){
  	            // error
