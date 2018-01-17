@@ -23,7 +23,7 @@
     <script>
     window.extAsyncInit = function() {
         // the Messenger Extensions JS SDK is done loading
-        MessengerExtensions.getContext(function success(uids) {
+        MessengerExtensions.getContext(function success(thread_context) {
         	window.location.assign("https://kariteun-webview.mybluemix.net/catalog?fbid="+thread_context.psid);
              $.post('https://https://testbotmessenger.mybluemix.net/sendOnWebviewClose', {"psid": thread_context.psid});
         }, function error(err) {
