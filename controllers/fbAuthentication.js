@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var passport = require('passport');
-
+var mailer = require('./mailController');
 var fbLoggedIn = function(req, res) {
     console.log("Retrieving user account of: " + req.params.fbid);
 
@@ -61,6 +61,7 @@ var registerfb = function(req, res) {
         console.log('================================');
         if (results.length == 0) {
             console.log('No duplicates.');
+            user._id = new mongoose.Types.ObjectId();
             user.firstname = req.body.firstname;
             user.lastname = req.body.lastname;
             user.email = req.body.email;
@@ -69,12 +70,16 @@ var registerfb = function(req, res) {
 
             user.fbid = req.body.fbid;
             user.loginsession = Date().valueOf();
-
+            user.setRateDetails()
             user.setPassword(req.body.password);
-
+            user.setActivationCode(req.body.email);
             user.save(function(err) {
+                mailer.sendVerification(user.email, user.activation);
                 res.status(200);
-                res.json({ 'success': 'Register complete' });
+                res.json({
+                    'success': 'Register complete',
+                    'userid': user._id
+                });
                 console.log("REGISTER COMPLETE.")
             });
         } else {

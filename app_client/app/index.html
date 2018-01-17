@@ -1,48 +1,35 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
     <base href="/">
     <title>Kariteun</title>
-
-
     <!-- CSS and Some scripts -->
     <link rel=icon href=pic/kariteun-logo.png>
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/fonts.css">
-    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-animate.js"></script>
-
     <!--  ====================================================================================== -->
-
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8" />
-
-
-
 </head>
 
 <body ng-app="app" ng-controller="indexController as vm">
     <script>
-    	 window.extAsyncInit = function() {
- 	         MessengerExtensions.getContext('328158877659945', 
- 	        		  function success(thread_context){
- 	                         window.location.assign("https://kariteun-webview.mybluemix.net/catalog?fbid="+thread_context.psid);
- 	                        $.post('https://https://testbotmessenger.mybluemix.net/sendOnWebviewClose', {"psid": thread_context.psid})
- 	          },
- 	          function error(err){
- 	            // error
- 	          }
- 	        ); 
- 	       }; 
- 
-         (function(d, s, id) {
+    window.extAsyncInit = function() {
+        // the Messenger Extensions JS SDK is done loading
+        MessengerExtensions.getContext(function success(uids) {
+        	window.location.assign("https://kariteun-webview.mybluemix.net/catalog?fbid="+thread_context.psid);
+             $.post('https://https://testbotmessenger.mybluemix.net/sendOnWebviewClose', {"psid": thread_context.psid})
+        }, function error(err) {
+        });
+      };
+        (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) {
                 return;
@@ -51,17 +38,15 @@
             js.id = id;
             js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
             fjs.parentNode.insertBefore(js, fjs);
-        }(document,'script', 'Messenger'));
-    	
-    	
-       
+        }(document,
+            'script', 'Messenger'));
     </script>
     <kariteun-navbar ng-show="vm.showNav" data-spy="affix"></kariteun-navbar>
     <webview-buttons data-spy="affix" ng-show="!vm.showNav && vm.showWVButtons" id="affixButton"></webview-buttons>
     <div class="whitespace"></div>
     <div id="leftArea"></div>
     <div id="bodyContainer" class="row">
-        <div class="container-fluid" ng-view></div>
+        <div class="" ng-view></div>
     </div>
     <div id="rightArea"></div>
     <div class="fillerDiv"></div>
@@ -72,13 +57,16 @@
     </div>
 
     <!-- angular scripts -->
-    <script src="app.module.js"></script>
+    <script src='app.module.js'></script>
     <script src="core/core.module.js"></script>
     <!--<script src='welcome/welcome.module.js'></script>-->
     <script src="item/item.module.js"></script>
     <script src="register/register.module.js"></script>
     <script src="login/login.module.js"></script>
     <script src="profile/profile.module.js"></script>
+    <script src="cart/cart.module.js"></script>
+    <script src="cart/cart.controller.js"></script>
+    <script src="cart/cart.route.js"></script>
     <script src="profile/profile.controller.js"></script>
     <script src="profile/profile.route.js"></script>
     <script src="login/login.controller.js"></script>
@@ -92,12 +80,13 @@
     <script src="catalog/catalog.route.js"></script>
     <script src="item/item.controller.js"></script>
     <script src="item/item.route.js"></script>
-    <script src="core/catalogService.js"></script>
-    <script src="core/fbService.js"></script>
+    <script src="core/catalog.service.js"></script>
+    <script src="core/fb.service.js"></script>
     <script src="core/navbar.directive.js"></script>
     <script src="core/WVButtons.directive.js"></script>
     <script src="core/authentication.service.js"></script>
     <script src="core/data.service.js"></script>
+    <script src="core/cart.service.js"></script>
     <script src="index.controller.js"></script>
 
 

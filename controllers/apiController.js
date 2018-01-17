@@ -3,31 +3,14 @@
  */
 
 var Catalog = require('../models/catalogModel');
-//var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var mailer = require('./mailController');
 
 module.exports = function(app) {
-
-    // app.use(bodyParser.json());
-    // app.use(bodyParser.urlencoded({ extended: true }));
-
-
-
-    // app.post('/api/add', function(req, res) {
-    //     var newTodo = Todos({
-    //         username: req.body.username,
-    //         todo: req.body.todo,
-    //         isDone: false,
-    //         hasAttachment: false
-    //     });
-    //     newTodo.save(function(err) {
-    //         console.log("Success");
-    //     })
-    //     res.render('../views/CRUDPage.ejs');
-    // })
-
-
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
     app.get('/api/activate/:code', function(req, res) {
 
         User.findByActivation(req.params.code, function(err, account) {
@@ -58,14 +41,14 @@ module.exports = function(app) {
 
 
 
-    app.post('/api/updateDDA', function(req, res) {
+    app.put('/api/updateDDA', function(req, res) {
         User.findByIdAndUpdate(req.body._id, {
             address: req.body.address,
             postalcode: req.body.postalcode
         }, function(err, data) {
             if (err) throw err;
             res.status(200);
-            console.log('DDA  Updated!')
+            console.log('DDA Updated!')
             if (!req.body.address) {
                 if (!data.address) {
                     if (data.postalcode == req.body.postalcode) {
@@ -90,11 +73,94 @@ module.exports = function(app) {
             } else {
                 res.send('New DDA has been set.');
             }
-            // res.end();
+
         });
 
     });
 
+    app.post('/api/review', function(req, res) {
+        console.log('Adding review');
+        req.body.review._id = new mongoose.Types.ObjectId();
+        console.log('ID created');
+        Catalog.findOneAndUpdate({ prodcode: req.body.prodcode }, {
+            $push: { reviews: req.body.review }
+        }, function(err) {
+            console.log('Review status:');
+            if (err) throw err;
 
+            res.status(200);
+            res.send('Review added');
+            console.log('Review added to ' + req.body.prodcode);
+
+
+        });
+
+    });
+
+    app.delete('/api/review/:prodcode/:id', function(req, res) {
+        console.log('Deleting review');
+        Catalog.findOneAndUpdate({ prodcode: req.params.prodcode }, {
+            $pull: { reviews: { _id: { $in: [req.params.id] } } }
+        }, function(err) {
+            console.log('Review status:');
+            if (err) throw err;
+
+            res.status(200);
+            res.send('Review deleted');
+            console.log('Review deleted from ' + req.params.prodcode);
+
+
+        });
+
+    });
+
+    app.put('/api/review/:prodcode', function(req, res) {
+        console.log('Modifying review');
+        Catalog.findOneAndUpdate({ prodcode: req.params.prodcode }, {
+            $pull: { reviews: { _id: { $in: [req.body._id] } } }
+        }, function(err) {
+            console.log('Review status:');
+            if (err) throw err;
+            console.log('Old review deleted. Adding new review...');
+            Catalog.findOneAndUpdate({ prodcode: req.params.prodcode }, {
+                $push: { reviews: req.body }
+            }, function(err) {
+                console.log('Review status:');
+                if (err) throw err;
+
+                res.status(200);
+                res.send('Review added');
+                console.log('Review added to ' + req.params.prodcode);
+
+
+            });
+
+
+
+        });
+
+    });
+    app.post('/api/resend', function(req, res) {
+
+        User.findOne({ email: req.body.email }, function(err, results) {
+
+            if (err) throw err;
+
+            if (results.length != 0) {
+                if (!results.activation) {
+                    res.status(400);
+                    res.send('Your account is already activated. Please refresh the page.');
+                } else {
+                    mailer.sendVerification(results.email, results.activation);
+                    console.log('Email sent.');
+                    res.status(200);
+                    res.send('Email has been sent.');
+                }
+            } else {
+                res.status(400);
+                res.send('Email sending failed. Please retry later.');
+            }
+        })
+    });
 
 }

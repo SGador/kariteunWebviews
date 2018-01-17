@@ -17,6 +17,10 @@ body {
     font-family: 'robotobold';
 }
 
+div {
+    word-wrap: break-word;
+}
+
 .navLogo {
     height: 50px;
 }
@@ -26,14 +30,70 @@ body {
     display: none;
 }
 
-#bodyContainer {
+
+/* #bodyContainer {
     background-color: white;
     border-radius: 5px;
     padding-bottom: 20px;
+} */
+
+.view-body {
+    background-color: white;
+    border-radius: 5px;
+    padding-bottom: 20px;
+    padding-top: 10px;
 }
 
 .navbar-nav li:hover {
     background-color: #b8edcc;
+}
+
+#reviewinput {
+    width: 100%;
+}
+
+#revieweditinput {
+    width: 100%;
+}
+
+.reviewoptions {
+    float: right;
+}
+
+.reviewoptions a {
+    text-decoration: none !important;
+}
+
+#addreview {
+    margin-top: 20%;
+}
+
+#editreview {
+    margin-top: 20%;
+}
+
+#addrate {
+    margin-top: 20%;
+}
+
+#filtertoggle {}
+
+#settings {
+    margin-top: 20%;
+}
+
+#advsearch {
+    display: block;
+    width: 100%;
+    min-height: 20px;
+}
+
+.selectedstar {
+    color: #5bb79c;
+}
+
+.star:hover {
+    color: #5bb79c !important;
 }
 
 
@@ -59,6 +119,12 @@ body {
 
 .MeMeBigBoy {
     color: #2e61b2;
+    /* font-size: 30px; */
+    font-family: "robotobold", "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.MeMeBigGirl {
+    color: #9c0b0b;
     /* font-size: 30px; */
     font-family: "robotobold", "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -132,6 +198,12 @@ body {
 
 #itemPageDiv {}
 
+#itemPageContent div[id="soloImage"],
+#itemPageContent div[id="dataDisplay"] {
+    vertical-align: top;
+    display: inline-block;
+}
+
 #profilePageDiv {
     width: 100%;
 }
@@ -173,7 +245,7 @@ body {
 }
 
 #filtersDiv {
-    padding: 20px;
+    padding: 10px;
     border-radius: 5px;
     background-color: #5bb79c;
     font-family: 'robotobold';
@@ -503,9 +575,10 @@ a[class*="item"]:hover {
 
 @media only screen and (min-width: 901px) {
     /*For Catalog/item page =====================*/
-    #bodyContainer {
+    /* #bodyContainer {
         padding: 15px !important;
-    }
+
+    } */
     #dataDisplay {
         /* float:left; */
         display: inline-block;

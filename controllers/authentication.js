@@ -1,7 +1,7 @@
 var passport = require('passport');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
-var mailer = require('./mailController')
+var mailer = require('./mailController');
 var sendJSONresponse = function(res, status, content) {
     res.status(status);
     res.json(content);
@@ -25,12 +25,14 @@ module.exports.register = function(req, res) {
         console.log(results);
         console.log('================================');
         if (results.length == 0) {
-            console.log('No duplicates detected.')
+            console.log('No duplicates detected.');
+            user._id = new mongoose.Types.ObjectId();
             user.email = req.body.email;
             user.firstname = req.body.firstname;
             user.lastname = req.body.lastname;
             user.address = req.body.address;
             user.postalcode = req.body.postalcode;
+            user.setRateDetails();
             user.setActivationCode(req.body.email);
             user.setPassword(req.body.password);
             console.log(user);
@@ -42,13 +44,18 @@ module.exports.register = function(req, res) {
                 console.log('REGISTER COMPLETE.');
                 res.status(200);
                 res.json({
-                    "token": token
+                    "token": token,
+                    "userid": user._id,
+                    'status': 'success'
                 });
 
             });
         } else {
             res.status(400);
-            res.json({ "errorMsg": "User already exists!" });
+            res.json({
+                "msg": "User already exists!",
+                "status": 'error'
+            });
             console.log('Register failed: User already exists.');
         }
     })

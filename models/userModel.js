@@ -52,19 +52,25 @@ var userSchema = new mongoose.Schema({
         index: true,
         sparse: true
     },
+    ratedetails: [{
+        itemrated: String,
+        rating: Number
+    }],
     hash: String,
     salt: String,
     active: Boolean,
     activation: {
         type: String
     }
-}, { collection: 'userdata' });
+}, { collection: 'users' });
 
 userSchema.statics.findByActivation = function(activation, cb) {
     return this.find({ activation: new RegExp(activation, 'i') }, cb);
 };
 
-
+userSchema.methods.setRateDetails = function() {
+    this.ratedetails = [];
+}
 
 userSchema.methods.setActivationCode = function(data) {
     var salter = crypto.randomBytes(16).toString('hex');
